@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     //меняешь коллайдеры - засунь в них любой нулевой physics
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
         jump = false;
     }
 }
