@@ -46,19 +46,21 @@ public class Move : MonoBehaviour
         if (isGrounded) State = States.afk;
         if (isGrounded && Input.GetButtonDown("Jump"))
             Jump();
+        if (move != 0 && isGrounded)
+            State = States.run;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         isGrounded = true;
 
-    } //Вызывается когда есть прикосновение  коллайдера объекта с другими коллайдерами
+    } //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         State = States.jump;
         isGrounded = false;
-    }  //Вызывается когда, происходит "выход из коллизии между объектами" (Есть противоположное OnCollisionEnter2D)
+    }  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ OnCollisionEnter2D)
 
     private void Jump()
     {
@@ -77,5 +79,6 @@ public class Move : MonoBehaviour
 public enum States
 {
     afk,
-    jump
+    jump,
+    run
 }
