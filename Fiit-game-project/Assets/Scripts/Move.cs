@@ -7,13 +7,22 @@ public class Move : MonoBehaviour
     public float maxSpeed = 10f;
     private bool flipRight = true;
     private Rigidbody2D rb;
+    private bool isGrounded = false;
     [SerializeField] private float jumpForce = 0.01f;
+    private Animator anim;
     // Start is called before the first frame update
 
+    private States State
+    {
+        get { return (States)anim.GetInteger("state"); }
+        set { anim.SetInteger("state", (int)value); }
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
+
     void Start()
     {
         
@@ -34,9 +43,10 @@ public class Move : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && isGrounded)
             Jump();
+        if (isGrounded) State = States.afk;
+        if (isGrounded && Input.GetButtonDown("Jump"))
+            Jump();
     }
-
-    private bool isGrounded = false; // Она уже должна быть создана выше, как в видео
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -44,10 +54,9 @@ public class Move : MonoBehaviour
 
     } //Вызывается когда есть прикосновение  коллайдера объекта с другими коллайдерами
 
-
-
     private void OnCollisionExit2D(Collision2D collision)
     {
+        State = States.jump;
         isGrounded = false;
     }  //Вызывается когда, происходит "выход из коллизии между объектами" (Есть противоположное OnCollisionEnter2D)
 
@@ -62,5 +71,11 @@ public class Move : MonoBehaviour
         var theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
+    }    
+}
+
+public enum States
+{
+    afk,
+    jump
 }
