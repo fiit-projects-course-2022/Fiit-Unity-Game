@@ -14,10 +14,24 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
             jump = true;
     }
 
+    private bool isGrounded = false; // Она уже должна быть создана выше, как в видео
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        isGrounded = true;
+
+    } //Вызывается когда есть прикосновение  коллайдера объекта с другими коллайдерами
+
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGrounded = false;
+    }  //Вызывается когда, происходит "выход из коллизии между объектами" (Есть противоположное OnCollisionEnter2D)
 
     //меняешь коллайдеры - засунь в них любой нулевой physics
     void FixedUpdate()
