@@ -48,6 +48,8 @@ public class Move : MonoBehaviour
             Jump();
         if (move != 0 && isGrounded)
             State = States.run;
+        if (Input.GetMouseButtonDown(0))
+                    State = States.hit;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -80,5 +82,6 @@ public enum States
 {
     afk,
     jump,
-    run
+    run,
+	hit
 }
