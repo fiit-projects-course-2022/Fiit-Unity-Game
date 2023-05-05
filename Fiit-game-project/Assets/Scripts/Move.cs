@@ -10,11 +10,13 @@ public class Move : MonoBehaviour
     private bool isGrounded = false;
     [SerializeField] private float jumpForce = 0.01f;
     private Animator anim;
-    public bool isAttacking = false;
+    public static bool isAttacking = false;
     public bool isRecharged = true;
     public Transform attackPos;
     public float attackRange;
     public LayerMask enemy;
+    [SerializeField] private int lives = 5;
+    public static Move Instance { get; set; }
     // Start is called before the first frame update
 
     private States State
@@ -27,6 +29,7 @@ public class Move : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         isRecharged = true;
+        Instance = this;
     }
 
     void Start()
@@ -47,12 +50,10 @@ public class Move : MonoBehaviour
         {
             Flip();
         }
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
             Jump();
         if (isGrounded && !isAttacking) State = States.afk;
-        if (isGrounded && Input.GetButtonDown("Jump"))
-            Jump();
-        if (move != 0 && isGrounded)
+        if (isGrounded && move != 0 && !isAttacking)
             State = States.run;
         if (Input.GetButtonDown("Fire1"))
             Hit();
@@ -115,6 +116,12 @@ public class Move : MonoBehaviour
         var theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    public void GetDamage()
+    {
+        lives -= 1;
+        Debug.Log(lives);
     }
 }
 
