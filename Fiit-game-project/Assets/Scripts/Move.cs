@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Move : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class Move : MonoBehaviour
     private bool isGrounded = false;
     [SerializeField] private float jumpForce = 0.01f;
     private Animator anim;
+    public static bool isAttacking = false;
+    public bool isRecharged = true;
+    public Transform attackPos;
+    public float attackRange;
+    public LayerMask enemy;
+    [SerializeField] private int lives = 5;
+    public static Move Instance { get; set; }
     // Start is called before the first frame update
 
     private States State
@@ -21,11 +29,13 @@ public class Move : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        isRecharged = true;
+        Instance = this;
     }
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -37,19 +47,17 @@ public class Move : MonoBehaviour
         {
             Flip();
         }
-        else if (move < 0 && flipRight) 
+        else if (move < 0 && flipRight)
         {
             Flip();
         }
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
             Jump();
-        if (isGrounded) State = States.afk;
-        if (isGrounded && Input.GetButtonDown("Jump"))
-            Jump();
-        if (move != 0 && isGrounded)
+        if (isGrounded && !isAttacking) State = States.afk;
+        if (isGrounded && move != 0 && !isAttacking)
             State = States.run;
-        if (Input.GetMouseButtonDown(0))
-                    State = States.hit;
+        if (Input.GetButtonDown("Fire1"))
+            Hit();
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -67,7 +75,32 @@ public class Move : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-    }    
+    }
+
+    private void Hit()
+    {
+        if (isGrounded && isRecharged)
+        {
+            State = States.hit;
+            isAttacking = true;
+            isRecharged = false;
+
+            StartCoroutine(AttackAnimation());
+            StartCoroutine(AttackCoolDown());
+        }
+    }
+
+    private IEnumerator AttackAnimation()
+    {
+        yield return new WaitForSeconds(0.4f);
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackCoolDown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isRecharged = true;
+    }
 
     private void Flip()
     {
@@ -75,7 +108,13 @@ public class Move : MonoBehaviour
         var theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }    
+    }
+
+    public void GetDamage()
+    {
+        lives -= 1;
+        Debug.Log(lives);
+    }
 }
 
 public enum States
@@ -83,5 +122,5 @@ public enum States
     afk,
     jump,
     run,
-	hit
+    hit
 }
