@@ -60,10 +60,11 @@ public class slugagr : MonoBehaviour
                 if (del == true)
                 {
                     Jump();
+                    
                 }
-
-                
             }
+
+            
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -72,7 +73,7 @@ public class slugagr : MonoBehaviour
         {
             isGrounded = true;
             del = false;
-            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX
+            rb.velocity = Vector2.zero;
         }
     }
 
@@ -94,11 +95,11 @@ public class slugagr : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         if (flipRight == false)
         {
-            rb.velocity = new Vector2(-2, rb.velocity.y);
+            rb.velocity = new Vector2(-3, rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(2, rb.velocity.y);
+            rb.velocity = new Vector2(3, rb.velocity.y);
         }
     }
     
