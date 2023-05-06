@@ -99,11 +99,11 @@ public class slugagr : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         if (flipRight == false)
         {
-            rb.velocity = new Vector2(-5, rb.velocity.y);
+            rb.velocity = new Vector2(-4, rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(5, rb.velocity.y);
+            rb.velocity = new Vector2(4, rb.velocity.y);
         }
         
     }
