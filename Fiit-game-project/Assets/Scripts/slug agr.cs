@@ -35,6 +35,7 @@ public class slugagr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         var player = GameObject.Find("Player");
         playerCoordinate = player.transform.position;
         slugCoordinate = this.transform.position;
