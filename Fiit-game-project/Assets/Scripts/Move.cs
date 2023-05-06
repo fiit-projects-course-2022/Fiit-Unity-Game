@@ -98,7 +98,7 @@ public class Move : MonoBehaviour
 
     private IEnumerator AttackCoolDown()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         isRecharged = true;
     }
 
