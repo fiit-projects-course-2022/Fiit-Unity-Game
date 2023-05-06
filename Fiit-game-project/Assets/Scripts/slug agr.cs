@@ -43,6 +43,7 @@ public class slugagr : MonoBehaviour
         if (isGrounded)
         {
             State = SlugStates.afk;
+            
             if (Math.Abs(slugCoordinate.x - playerCoordinate.x) < 10 && 
                 Math.Abs(slugCoordinate.y - playerCoordinate.y - 2.65) < 3)
             {
@@ -62,6 +63,8 @@ public class slugagr : MonoBehaviour
                     Jump();
                     
                 }
+
+                
             }
 
             
@@ -74,6 +77,7 @@ public class slugagr : MonoBehaviour
             isGrounded = true;
             del = false;
             rb.velocity = Vector2.zero;
+            
         }
     }
 
@@ -101,6 +105,7 @@ public class slugagr : MonoBehaviour
         {
             rb.velocity = new Vector2(3, rb.velocity.y);
         }
+        
     }
     
     private void Flip()
