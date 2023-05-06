@@ -13,6 +13,7 @@ public class slugagr : MonoBehaviour
     private bool del = false;
     public Vector3 playerCoordinate;
     public Vector3 slugCoordinate;
+    
     // Start is called before the first frame update
     
     private SlugStates State
@@ -37,18 +38,31 @@ public class slugagr : MonoBehaviour
         var player = GameObject.Find("Player");
         playerCoordinate = player.transform.position;
         slugCoordinate = this.transform.position;
+        
+        
         if (isGrounded)
         {
             State = SlugStates.afk;
-            while (Math.Abs(slugCoordinate.x - playerCoordinate.x) < 10 && 
+            if (Math.Abs(slugCoordinate.x - playerCoordinate.x) < 10 && 
                 Math.Abs(slugCoordinate.y - playerCoordinate.y - 2.65) < 3)
             {
-
-                //StartCoroutine(delay());
-                //Invoke("Delay",2f);
-                //if (del == true) Jump();
-                Jump();
+                if (slugCoordinate.x > playerCoordinate.x && flipRight)
+                {
+                    Flip();
+                }
+                if (slugCoordinate.x < playerCoordinate.x && !flipRight)
+                {
+                    Flip();
+                }
+                
                 State = SlugStates.jump;
+                Invoke("Delay",1.5f);
+                if (del == true)
+                {
+                    Jump();
+                }
+
+                
             }
         }
     }
@@ -57,6 +71,8 @@ public class slugagr : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
+            del = false;
+            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX
         }
     }
 
@@ -70,21 +86,33 @@ public class slugagr : MonoBehaviour
         {
             
             isGrounded = false;
+            State = SlugStates.jump1;
         }
     }
     private void Jump()
     {
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        if (flipRight == false)
+        {
+            rb.velocity = new Vector2(-2, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(2, rb.velocity.y);
+        }
     }
-
-    IEnumerator delay()
+    
+    private void Flip()
     {
-        State = SlugStates.jump;
-        yield return new WaitForSeconds(2);
+        flipRight = !flipRight;
+        var theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
 public enum SlugStates
 {
     afk,
-    jump
+    jump,
+    jump1
 }
