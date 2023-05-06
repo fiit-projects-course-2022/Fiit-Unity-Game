@@ -35,7 +35,6 @@ public class slugagr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         var player = GameObject.Find("Player");
         playerCoordinate = player.transform.position;
         slugCoordinate = this.transform.position;
@@ -100,11 +99,11 @@ public class slugagr : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         if (flipRight == false)
         {
-            rb.velocity = new Vector2(-3, rb.velocity.y);
+            rb.velocity = new Vector2(-5, rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(3, rb.velocity.y);
+            rb.velocity = new Vector2(5, rb.velocity.y);
         }
         
     }
