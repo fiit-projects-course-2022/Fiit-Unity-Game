@@ -8,7 +8,7 @@ public class Move : MonoBehaviour
     public float maxSpeed = 10f;
     private bool flipRight = true;
     private Rigidbody2D rb;
-    private bool isGrounded = false;
+    [SerializeField] private bool isGrounded = false;
     [SerializeField] private float jumpForce = 0.01f;
     private Animator anim;
     public static bool isAttacking = false;
