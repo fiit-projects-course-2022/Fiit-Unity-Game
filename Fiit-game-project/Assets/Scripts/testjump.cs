@@ -82,6 +82,7 @@ public class testjump : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
+            State = SlugStates1.jump1;
             isGrounded = false;
         }
     }
