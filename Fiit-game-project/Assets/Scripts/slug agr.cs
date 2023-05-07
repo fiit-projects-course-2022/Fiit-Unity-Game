@@ -7,13 +7,13 @@ public class slugagr : MonoBehaviour
 {
     private bool flipRight = true;
     private Rigidbody2D rb;
-    [SerializeField] private float jumpForce = 0.01f;
+    [SerializeField] private float jumpForce = 0.1f;
     private Animator anim;
     [SerializeField]private bool isGrounded = false;
     private bool del = false;
     public Vector3 playerCoordinate;
+
     public Vector3 slugCoordinate;
-    
     // Start is called before the first frame update
     
     private SlugStates State
@@ -61,13 +61,8 @@ public class slugagr : MonoBehaviour
                 if (del == true)
                 {
                     Jump();
-                    
                 }
-
-                
             }
-
-            
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,11 +75,6 @@ public class slugagr : MonoBehaviour
             
         }
     }
-
-    private void Delay()
-    {
-        del = true;
-    }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Ground"))
@@ -93,6 +83,10 @@ public class slugagr : MonoBehaviour
             isGrounded = false;
             State = SlugStates.jump1;
         }
+    }
+    private void Delay()
+    {
+        del = true;
     }
     private void Jump()
     {
@@ -105,7 +99,6 @@ public class slugagr : MonoBehaviour
         {
             rb.velocity = new Vector2(4, rb.velocity.y);
         }
-        
     }
     
     private void Flip()
