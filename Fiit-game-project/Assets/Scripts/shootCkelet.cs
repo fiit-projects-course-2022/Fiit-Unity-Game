@@ -35,7 +35,7 @@ public class shootCkelet : MonoBehaviour
         foreach (var player in hitEnemies) 
         {
             Debug.Log("We hit" + player);
-            player.GetComponent<health>().TakeDamage(1.5f);
+            player.GetComponent<health>().TakeDamage(2f);
         }
     }
     private void OnDrawGizmosSelected()
