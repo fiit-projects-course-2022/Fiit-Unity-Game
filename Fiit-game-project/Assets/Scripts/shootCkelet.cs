@@ -9,6 +9,7 @@ public class shootCkelet : MonoBehaviour
     public LayerMask playerLayers;
     public float attackRate = 0.3f;
     float nextAttackTime = 0f;
+    public float wait = 0f;
     
     void Start()
     {
@@ -20,9 +21,10 @@ public class shootCkelet : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (ckeletagr.hit == true)
+            if (ckeletagr.hit == true )
             {
                 Attack();
+                ckeletagr.hit = false;
                 nextAttackTime = Time.time + attackRate;
             }
         }

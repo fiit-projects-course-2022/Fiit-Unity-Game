@@ -35,6 +35,7 @@ public class fireMove : MonoBehaviour
         {
             rbFire.velocity = new Vector2(-4, rbFire.velocity.y);
         }
+        
     }
     private void Awake()
     {

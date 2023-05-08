@@ -92,9 +92,9 @@ public class testjump : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         if (flipRight)
         {
-            rb.velocity = new Vector2(2, rb.velocity.y);
+            rb.velocity = new Vector2(3, rb.velocity.y);
         }
-        else rb.velocity = new Vector2(-2, rb.velocity.y);
+        else rb.velocity = new Vector2(-3, rb.velocity.y);
     }
     
     private void Flip()

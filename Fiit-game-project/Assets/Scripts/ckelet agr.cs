@@ -10,7 +10,9 @@ public class ckeletagr : MonoBehaviour
     public Vector3 playerCoordinate;
     public Vector3 skeletCoordinate;
     [SerializeField]private bool flipRight = true;
-
+    private bool flag = true;
+    private bool firstEnter = false;
+    [SerializeField]public float wait = 0f;
     public static bool hit = false;
     // Start is called before the first frame update
     private void Awake()
@@ -36,35 +38,50 @@ public class ckeletagr : MonoBehaviour
         playerCoordinate = player.transform.position;
         skeletCoordinate = this.transform.position;
         State = CkeletStates.afk;
-
-        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 40 &&
-            Math.Abs(skeletCoordinate.y - playerCoordinate.y) < 2)
+        
+        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 3)
         {
-            if (skeletCoordinate.x > playerCoordinate.x && flipRight)
+            firstEnter = true;
+            flag = false;
+        }
+
+        if (firstEnter)
+        {
+            rb.velocity = Vector2.zero;
+            wait += Time.deltaTime;
+            rb.velocity = Vector2.zero;
+            State = CkeletStates.hit;
+            if (wait >= 2.09f)
+            {
+                flag = true;
+                hit = true;
+                firstEnter = false;
+                wait = 0f;
+            }
+            
+        }
+        
+        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 13 &&
+            Math.Abs(skeletCoordinate.y - playerCoordinate.y) < 2 && flag)
+        {
+            if (skeletCoordinate.x > playerCoordinate.x && !flipRight)
             {
                 Flip();
             }
 
-            if (skeletCoordinate.x < playerCoordinate.x && !flipRight)
+            if (skeletCoordinate.x < playerCoordinate.x && flipRight)
             {
                 Flip();
             }
             
             if (flipRight)
             {
-                rb.velocity = new Vector2(2, rb.velocity.y);
+                rb.velocity = new Vector2(-2, rb.velocity.y);
             }
-            else rb.velocity = new Vector2(-2, rb.velocity.y);
-            
-            if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 3)
-            {
-                hit = true;
-                rb.velocity = Vector2.zero;
-                State = CkeletStates.hit;
-            }
+            else rb.velocity = new Vector2(2, rb.velocity.y);
         }
-        
-        
+        Debug.Log(flag);
+        Debug.Log(firstEnter);
     }
     private void Flip()
     {

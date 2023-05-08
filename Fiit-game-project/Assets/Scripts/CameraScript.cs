@@ -15,8 +15,8 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         var temp = transform.position;
-        temp.x = player.position.x + 5;
-        temp.y = player.position.y + 3;
+        temp.x = player.position.x;
+        temp.y = player.position.y;
         transform.position = temp;
     }
 }
