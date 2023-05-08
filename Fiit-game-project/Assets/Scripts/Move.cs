@@ -17,6 +17,8 @@ public class Move : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public float attackRate = 0.565f;
+    float nextAttackTime = 0f;
 
     private void SetState(States value) => anim.SetInteger("state", (int)value);
     private void Awake()
@@ -46,7 +48,12 @@ public class Move : MonoBehaviour
             SetState(States.run);
         if (Input.GetButtonDown("Fire1"))
             if (isGrounded && !isAttacking && move == 0)
-                Hit();
+                if (Time.time >= nextAttackTime)
+                {
+                    Hit();
+                    Attack();
+                    nextAttackTime = Time.time + attackRate;
+                }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -73,6 +80,7 @@ public class Move : MonoBehaviour
             isAttacking = true;
             isRecharged = false;
 
+
             StartCoroutine(AttackAnimation());
             StartCoroutine(AttackCoolDown());
         }
@@ -85,6 +93,7 @@ public class Move : MonoBehaviour
         {
             Debug.Log("We hit" + enemy);
             enemy.GetComponent<Enemy>().TakeDamage(1);
+            return;
         }
     }
 
@@ -97,13 +106,13 @@ public class Move : MonoBehaviour
 
     private IEnumerator AttackAnimation()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.465f);
         isAttacking = false;
     }
 
     private IEnumerator AttackCoolDown()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(attackRate);
         isRecharged = true;
     }
 
