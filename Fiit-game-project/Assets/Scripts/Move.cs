@@ -15,11 +15,7 @@ public class Move : MonoBehaviour
     public bool isRecharged = true;
     public static Move Instance { get; set; }
 
-    private States State
-    {
-        get { return (States)anim.GetInteger("state"); }
-        set { anim.SetInteger("state", (int)value); }
-    }
+    private void SetState(States value) => anim.SetInteger("state", (int)value);
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,12 +24,6 @@ public class Move : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         var move = Input.GetAxis("Horizontal");
@@ -48,25 +38,22 @@ public class Move : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking)
             Jump();
-        if (isGrounded && !isAttacking) State = States.afk;
+        if (isGrounded && !isAttacking) SetState(States.afk);
         if (isGrounded && move != 0 && !isAttacking)
-            State = States.run;
+            SetState(States.run);
         if (Input.GetButtonDown("Fire1"))
             if (isGrounded && !isAttacking && move == 0)
                 Hit();
-            else if (isGrounded && move != 0 && !isAttacking)
-                State = States.run;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         isGrounded = true;
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        State = States.jump;
+        SetState(States.jump);
         isGrounded = false;
     }
 
@@ -79,7 +66,7 @@ public class Move : MonoBehaviour
     {
         if (isGrounded && isRecharged)
         {
-            State = States.hit;
+            SetState(States.hit);
             isAttacking = true;
             isRecharged = false;
 
