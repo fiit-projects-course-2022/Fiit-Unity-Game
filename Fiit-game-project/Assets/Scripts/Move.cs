@@ -13,12 +13,7 @@ public class Move : MonoBehaviour
     private Animator anim;
     public static bool isAttacking = false;
     public bool isRecharged = true;
-    public Transform attackPos;
-    public float attackRange;
-    public LayerMask enemy;
-    [SerializeField] private int lives = 5;
     public static Move Instance { get; set; }
-    // Start is called before the first frame update
 
     private States State
     {
@@ -51,26 +46,29 @@ public class Move : MonoBehaviour
         {
             Flip();
         }
-        if (Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking)
             Jump();
         if (isGrounded && !isAttacking) State = States.afk;
         if (isGrounded && move != 0 && !isAttacking)
             State = States.run;
         if (Input.GetButtonDown("Fire1"))
-            Hit();
+            if (isGrounded && !isAttacking && move == 0)
+                Hit();
+            else if (isGrounded && move != 0 && !isAttacking)
+                State = States.run;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         isGrounded = true;
 
-    } //���������� ����� ���� �������������  ���������� ������� � ������� ������������
+    }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         State = States.jump;
         isGrounded = false;
-    }  //���������� �����, ���������� "����� �� �������� ����� ���������" (���� ��������������� OnCollisionEnter2D)
+    }
 
     private void Jump()
     {
@@ -108,12 +106,6 @@ public class Move : MonoBehaviour
         var theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
-
-    public void GetDamage()
-    {
-        lives -= 1;
-        Debug.Log(lives);
     }
 }
 

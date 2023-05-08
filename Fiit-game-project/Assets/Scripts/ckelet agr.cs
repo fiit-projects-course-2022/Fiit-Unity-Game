@@ -80,8 +80,8 @@ public class ckeletagr : MonoBehaviour
             }
             else rb.velocity = new Vector2(2, rb.velocity.y);
         }
-        Debug.Log(flag);
-        Debug.Log(firstEnter);
+        //Debug.Log(flag);
+        //Debug.Log(firstEnter);
     }
     private void Flip()
     {
