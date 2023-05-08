@@ -14,6 +14,9 @@ public class Move : MonoBehaviour
     public static bool isAttacking = false;
     public bool isRecharged = true;
     public static Move Instance { get; set; }
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
 
     private void SetState(States value) => anim.SetInteger("state", (int)value);
     private void Awake()
@@ -73,6 +76,23 @@ public class Move : MonoBehaviour
             StartCoroutine(AttackAnimation());
             StartCoroutine(AttackCoolDown());
         }
+    }
+
+    void Attack()
+    {
+        var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach (var enemy in hitEnemies)
+        {
+            Debug.Log("We hit" + enemy);
+            enemy.GetComponent<Enemy>().TakeDamage(1);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
     private IEnumerator AttackAnimation()
