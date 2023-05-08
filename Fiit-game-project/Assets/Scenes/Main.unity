@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 125587902}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (10)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3208,7 +3208,7 @@ GameObject:
   - component: {fileID: 588028099}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (9)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3723,7 +3723,7 @@ GameObject:
   - component: {fileID: 670513721}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (2)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3891,7 +3891,7 @@ GameObject:
   - component: {fileID: 695789638}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (6)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5142,7 +5142,7 @@ GameObject:
   - component: {fileID: 825811870}
   - component: {fileID: 825811876}
   - component: {fileID: 825811875}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fire0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6513,7 +6513,7 @@ GameObject:
   - component: {fileID: 1004323960}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (12)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7106,7 +7106,7 @@ GameObject:
   - component: {fileID: 1103474466}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7753,7 +7753,7 @@ GameObject:
   - component: {fileID: 1199334686}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (13)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8135,7 +8135,7 @@ GameObject:
   - component: {fileID: 1235474826}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (3)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8609,7 +8609,7 @@ GameObject:
   - component: {fileID: 1290582493}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (7)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9958,7 +9958,7 @@ GameObject:
   - component: {fileID: 1613278730}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (4)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10043,7 +10043,7 @@ GameObject:
   - component: {fileID: 1616264201}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (15)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10386,7 +10386,7 @@ GameObject:
   - component: {fileID: 1689787738}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (1)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10470,7 +10470,7 @@ GameObject:
   - component: {fileID: 1695618942}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (14)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11670,7 +11670,7 @@ GameObject:
   - component: {fileID: 1782253945}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (11)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12182,7 +12182,7 @@ GameObject:
   - component: {fileID: 1853210401}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (5)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14953,7 +14953,7 @@ GameObject:
   - component: {fileID: 2116947881}
   m_Layer: 0
   m_Name: 1620826817_26-phonoteka_org-p-pikselnii-fon-zemli-35 (8)
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

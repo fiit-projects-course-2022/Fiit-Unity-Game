@@ -18,6 +18,10 @@ public class shootFIRE : MonoBehaviour
             other.GetComponent<health>().TakeDamage(damage);
             Destroy(gameObject);
         }
+        if (other.tag == "wall")
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()
