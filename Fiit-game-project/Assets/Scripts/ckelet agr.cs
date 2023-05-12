@@ -12,7 +12,7 @@ public class ckeletagr : MonoBehaviour
     [SerializeField]private bool flipRight = true;
     private bool flag = true;
     private bool firstEnter = false;
-    [SerializeField]public float wait = 0f;
+    [SerializeField]public float wait;
     public static bool hit = false;
     // Start is called before the first frame update
     private void Awake()

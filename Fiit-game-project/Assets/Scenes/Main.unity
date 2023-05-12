@@ -5509,7 +5509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f0c8110bc190142a63d96f5ff7478a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpFiil: {fileID: 0}
+  hpFiil: {fileID: 1097942860}
 --- !u!212 &491762783
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10377,7 +10377,6 @@ GameObject:
   - component: {fileID: 795594835}
   - component: {fileID: 795594841}
   - component: {fileID: 795594838}
-  - component: {fileID: 795594840}
   - component: {fileID: 795594842}
   m_Layer: 6
   m_Name: Player
@@ -10524,18 +10523,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackRate: 0.565
---- !u!114 &795594840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795594830}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41cd65c113f76940a95c4c485c765f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &795594841
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23729,7 +23716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f0c8110bc190142a63d96f5ff7478a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpFiil: {fileID: 0}
+  hpFiil: {fileID: 1336246206}
 --- !u!212 &1814743471
 SpriteRenderer:
   m_ObjectHideFlags: 0

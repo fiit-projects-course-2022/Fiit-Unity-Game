@@ -15,9 +15,9 @@ public class Move : MonoBehaviour
     public bool isRecharged = true;
     public static Move Instance { get; set; }
     public Transform attackPoint;
-    public float attackRange = 0.5f;
+    public float attackRange;
     public LayerMask enemyLayers;
-    public float attackRate = 0.565f;
+    public float attackRate;
     float nextAttackTime = 0f;
 
     private void SetState(States value) => anim.SetInteger("state", (int)value);

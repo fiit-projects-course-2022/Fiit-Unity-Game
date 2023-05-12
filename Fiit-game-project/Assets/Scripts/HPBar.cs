@@ -18,7 +18,7 @@ public class HPPlayerMover : MonoBehaviour
     {
         var player = GameObject.Find("Player");
         var Hp = player.GetComponent<health>().hp;
-        OnHealthChanged(1 - 0.20f*Hp);
+        OnHealthChanged(1f - 0.20f*Hp);
     }
 
     private void OnHealthChanged(float valueAsPercantage)

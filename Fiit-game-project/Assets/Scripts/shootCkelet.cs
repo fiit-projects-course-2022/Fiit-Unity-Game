@@ -5,11 +5,10 @@ using UnityEngine;
 public class shootCkelet : MonoBehaviour
 {
     public Transform attackPoint;
-    public float attackRange = 0.5f;
+    public float attackRange;
     public LayerMask playerLayers;
-    public float attackRate = 0.3f;
+    public float attackRate;
     float nextAttackTime = 0f;
-    public float wait = 0f;
     
     void Start()
     {
