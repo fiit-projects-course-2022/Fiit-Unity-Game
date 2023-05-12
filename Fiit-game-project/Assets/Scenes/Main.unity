@@ -10490,7 +10490,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: d35bb0247a5d1214896f67148610e902, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -10516,13 +10516,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   isGrounded: 0
-  jumpForce: 14
+  jumpForce: 30
   isRecharged: 1
   attackPoint: {fileID: 2090373293}
   attackRange: 1.3
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
+  attackRate: 0.565
 --- !u!114 &795594840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10535,12 +10536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41cd65c113f76940a95c4c485c765f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: {fileID: 2090373293}
-  attackRange: 1.3
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  attackRate: 1.01
 --- !u!61 &795594841
 BoxCollider2D:
   m_ObjectHideFlags: 0
