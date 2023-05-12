@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class fireMove : MonoBehaviour
 {
+    [SerializeField]private bool flipRight = true;
     private Rigidbody2D rbFire;
     private bool turn;
     public Vector3 playerCoordinate;
@@ -30,15 +31,31 @@ public class fireMove : MonoBehaviour
         if (turn == true)
         {
             rbFire.velocity = new Vector2(4, rbFire.velocity.y);
+            if (flipRight)
+            {
+                Flip();
+            }
         }
         else
         {
             rbFire.velocity = new Vector2(-4, rbFire.velocity.y);
+            if (!flipRight)
+            {
+                Flip();
+            }
         }
         
     }
     private void Awake()
     {
         rbFire = GetComponent<Rigidbody2D>();
+    }
+    
+    private void Flip()
+    {
+        flipRight = !flipRight;
+        var theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }

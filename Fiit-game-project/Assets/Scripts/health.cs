@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class health : MonoBehaviour
 {
-    [SerializeField]private float hp = 3;
+    [SerializeField]public float hp = 3;
     void Start()
     {
         
