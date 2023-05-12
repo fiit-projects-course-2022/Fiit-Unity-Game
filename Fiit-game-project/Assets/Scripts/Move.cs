@@ -19,6 +19,8 @@ public class Move : MonoBehaviour
     public LayerMask enemyLayers;
     public float attackRate;
     float nextAttackTime = 0f;
+    [SerializeField] public AudioSource shootFromPlayer;
+
 
     private void SetState(States value) => anim.SetInteger("state", (int)value);
     private void Awake()
@@ -80,10 +82,13 @@ public class Move : MonoBehaviour
             SetState(States.hit);
             isAttacking = true;
             isRecharged = false;
-
+            
 
             StartCoroutine(AttackAnimation());
             StartCoroutine(AttackCoolDown());
+            StartCoroutine(SoungOfAttack());
+
+            
         }
     }
 
@@ -109,6 +114,14 @@ public class Move : MonoBehaviour
     {
         yield return new WaitForSeconds(0.465f);
         isAttacking = false;
+
+    }
+    
+    private IEnumerator SoungOfAttack()
+    {
+        yield return new WaitForSeconds(0.15f);
+        shootFromPlayer.Play();
+
     }
 
     private IEnumerator AttackCoolDown()
