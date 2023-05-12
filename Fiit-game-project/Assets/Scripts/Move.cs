@@ -58,7 +58,8 @@ public class Move : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        isGrounded = true;
+        if (collision.gameObject.tag != "wall" && collision.gameObject.tag != "Border")
+            isGrounded = true;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
