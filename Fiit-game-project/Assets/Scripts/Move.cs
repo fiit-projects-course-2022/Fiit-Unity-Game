@@ -13,18 +13,14 @@ public class Move : MonoBehaviour
     private Animator anim;
     public static bool isAttacking = false;
     public bool isRecharged = true;
-    public Transform attackPos;
-    public float attackRange;
-    public LayerMask enemy;
-    [SerializeField] private int lives = 5;
     public static Move Instance { get; set; }
-    // Start is called before the first frame update
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
+    public float attackRate = 0.565f;
+    float nextAttackTime = 0f;
 
-    private States State
-    {
-        get { return (States)anim.GetInteger("state"); }
-        set { anim.SetInteger("state", (int)value); }
-    }
+    private void SetState(States value) => anim.SetInteger("state", (int)value);
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,12 +29,6 @@ public class Move : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         var move = Input.GetAxis("Horizontal");
@@ -51,26 +41,31 @@ public class Move : MonoBehaviour
         {
             Flip();
         }
-        if (Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking)
             Jump();
-        if (isGrounded && !isAttacking) State = States.afk;
+        if (isGrounded && !isAttacking) SetState(States.afk);
         if (isGrounded && move != 0 && !isAttacking)
-            State = States.run;
+            SetState(States.run);
         if (Input.GetButtonDown("Fire1"))
-            Hit();
+            if (isGrounded && !isAttacking && move == 0)
+                if (Time.time >= nextAttackTime)
+                {
+                    Hit();
+                    Attack();
+                    nextAttackTime = Time.time + attackRate;
+                }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         isGrounded = true;
-
-    } //���������� ����� ���� �������������  ���������� ������� � ������� ������������
+    }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        State = States.jump;
+        SetState(States.jump);
         isGrounded = false;
-    }  //���������� �����, ���������� "����� �� �������� ����� ���������" (���� ��������������� OnCollisionEnter2D)
+    }
 
     private void Jump()
     {
@@ -81,24 +76,43 @@ public class Move : MonoBehaviour
     {
         if (isGrounded && isRecharged)
         {
-            State = States.hit;
+            SetState(States.hit);
             isAttacking = true;
             isRecharged = false;
+
 
             StartCoroutine(AttackAnimation());
             StartCoroutine(AttackCoolDown());
         }
     }
 
+    void Attack()
+    {
+        var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach (var enemy in hitEnemies)
+        {
+            Debug.Log("We hit" + enemy);
+            enemy.GetComponent<Enemy>().TakeDamage(1);
+            return;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
     private IEnumerator AttackAnimation()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.465f);
         isAttacking = false;
     }
 
     private IEnumerator AttackCoolDown()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(attackRate);
         isRecharged = true;
     }
 
@@ -108,12 +122,6 @@ public class Move : MonoBehaviour
         var theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
-
-    public void GetDamage()
-    {
-        lives -= 1;
-        Debug.Log(lives);
     }
 }
 

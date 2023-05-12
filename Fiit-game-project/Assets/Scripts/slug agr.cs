@@ -7,13 +7,13 @@ public class slugagr : MonoBehaviour
 {
     private bool flipRight = true;
     private Rigidbody2D rb;
-    [SerializeField] private float jumpForce = 0.01f;
+    [SerializeField] private float jumpForce = 0.1f;
     private Animator anim;
     [SerializeField]private bool isGrounded = false;
     private bool del = false;
     public Vector3 playerCoordinate;
+
     public Vector3 slugCoordinate;
-    
     // Start is called before the first frame update
     
     private SlugStates State
@@ -43,6 +43,7 @@ public class slugagr : MonoBehaviour
         if (isGrounded)
         {
             State = SlugStates.afk;
+            
             if (Math.Abs(slugCoordinate.x - playerCoordinate.x) < 10 && 
                 Math.Abs(slugCoordinate.y - playerCoordinate.y - 2.65) < 3)
             {
@@ -60,11 +61,8 @@ public class slugagr : MonoBehaviour
                 if (del == true)
                 {
                     Jump();
-                    
                 }
             }
-
-            
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,12 +72,8 @@ public class slugagr : MonoBehaviour
             isGrounded = true;
             del = false;
             rb.velocity = Vector2.zero;
+            
         }
-    }
-
-    private void Delay()
-    {
-        del = true;
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -90,16 +84,20 @@ public class slugagr : MonoBehaviour
             State = SlugStates.jump1;
         }
     }
+    private void Delay()
+    {
+        del = true;
+    }
     private void Jump()
     {
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         if (flipRight == false)
         {
-            rb.velocity = new Vector2(-3, rb.velocity.y);
+            rb.velocity = new Vector2(-4, rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(3, rb.velocity.y);
+            rb.velocity = new Vector2(4, rb.velocity.y);
         }
     }
     
