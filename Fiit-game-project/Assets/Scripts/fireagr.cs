@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class fireagr : MonoBehaviour
 {
+    [SerializeField] public AudioSource soundOfSpawn;
     private Rigidbody2D rb;
     private Rigidbody2D rbFire;
     private bool del = false;
@@ -14,10 +15,12 @@ public class fireagr : MonoBehaviour
     public GameObject placeOfSpawnLeft;
     public GameObject placeOfSpawnRight;
     private bool flipRight = true;
+    
 
     public float startTimeBtwSpawns;
     private float timeBtwSpawns;
-
+    private float timeSound;
+    public float startTimeSound;
     
     // Start is called before the first frame update
 
@@ -31,6 +34,7 @@ public class fireagr : MonoBehaviour
     void Start()
     {
         timeBtwSpawns = startTimeBtwSpawns;
+        timeSound = startTimeSound;
     }
 
     // Update is called once per frame
@@ -56,6 +60,19 @@ public class fireagr : MonoBehaviour
             
             if (timeBtwSpawns <= 0)
             {
+                if (timeSound <= 0)
+                {
+                    soundOfSpawn.Play();
+                    timeSound = startTimeSound;
+                }
+                else
+                {
+                    timeSound = startTimeSound;
+                }
+                
+
+                
+                
                 if (flipRight == false)
                 {
                     Instantiate(obj,placeOfSpawnLeft.transform.position,Quaternion.identity);

@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - wall
   - Border
+  - Bonic
+  - fireBall
+  - slug
   layers:
   - Default
   - TransparentFX

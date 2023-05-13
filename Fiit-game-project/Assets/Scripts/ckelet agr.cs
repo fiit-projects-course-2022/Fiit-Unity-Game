@@ -5,6 +5,8 @@ using System;
 
 public class ckeletagr : MonoBehaviour
 {
+    [SerializeField] public AudioSource soundOfMove;
+    [SerializeField] public AudioSource soundOfHit;
     private Animator anim;
     private Rigidbody2D rb;
     public Vector3 playerCoordinate;
@@ -12,23 +14,29 @@ public class ckeletagr : MonoBehaviour
     [SerializeField]private bool flipRight = true;
     private bool flag = true;
     private bool firstEnter = false;
-    [SerializeField]public float wait = 0f;
+    [SerializeField]public float wait;
     public static bool hit = false;
+    public Transform attackPoint;
+    public float attackRange;
+    public LayerMask playerLayers;
+    
     // Start is called before the first frame update
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
-    
-    private CkeletStates State
+
+    private void SetState(CkeletStates value) => anim.SetInteger("state", (int)value);
+
+    void OnAttack()
     {
-        get { return (CkeletStates)anim.GetInteger("state"); }
-        set { anim.SetInteger("state", (int)value); }
-    }
-    void Start()
-    {
-        
+        var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayers);
+        foreach (var player in hitEnemies)
+        {
+            Debug.Log("We hit" + player);
+            player.GetComponent<health>().TakeDamage(2f);
+        }
     }
 
     // Update is called once per frame
@@ -36,10 +44,11 @@ public class ckeletagr : MonoBehaviour
     {
         var player = GameObject.Find("Player");
         playerCoordinate = player.transform.position;
-        skeletCoordinate = this.transform.position;
-        State = CkeletStates.afk;
+        skeletCoordinate = transform.position;
+        SetState(CkeletStates.afk);
         
-        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 3)
+        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 3 &&
+            Math.Abs(skeletCoordinate.y - playerCoordinate.y) < 2)
         {
             firstEnter = true;
             flag = false;
@@ -50,13 +59,14 @@ public class ckeletagr : MonoBehaviour
             rb.velocity = Vector2.zero;
             wait += Time.deltaTime;
             rb.velocity = Vector2.zero;
-            State = CkeletStates.hit;
+            SetState(CkeletStates.hit);
             if (wait >= 2.09f)
             {
                 flag = true;
                 hit = true;
                 firstEnter = false;
                 wait = 0f;
+                
             }
             
         }
@@ -64,6 +74,8 @@ public class ckeletagr : MonoBehaviour
         if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 13 &&
             Math.Abs(skeletCoordinate.y - playerCoordinate.y) < 2 && flag)
         {
+            if (soundOfMove.isPlaying) return;
+            soundOfMove.Play();
             if (skeletCoordinate.x > playerCoordinate.x && !flipRight)
             {
                 Flip();
@@ -80,8 +92,12 @@ public class ckeletagr : MonoBehaviour
             }
             else rb.velocity = new Vector2(2, rb.velocity.y);
         }
-        //Debug.Log(flag);
-        //Debug.Log(firstEnter);
+        else soundOfMove.Stop();
+    }
+
+    private void SoundOfHit()
+    {
+        soundOfHit.Play();
     }
     private void Flip()
     {
