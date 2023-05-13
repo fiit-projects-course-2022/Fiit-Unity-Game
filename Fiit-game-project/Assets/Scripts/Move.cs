@@ -20,6 +20,9 @@ public class Move : MonoBehaviour
     public float attackRate;
     float nextAttackTime = 0f;
     [SerializeField] public AudioSource shootFromPlayer;
+    [SerializeField] public AudioSource miss;
+    [SerializeField] public AudioSource soundOfMove;
+
 
 
     private void SetState(States value) => anim.SetInteger("state", (int)value);
@@ -43,11 +46,22 @@ public class Move : MonoBehaviour
         {
             Flip();
         }
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking)
             Jump();
         if (isGrounded && !isAttacking) SetState(States.afk);
         if (isGrounded && move != 0 && !isAttacking)
+        {
             SetState(States.run);
+        }
+        
+        if (isGrounded && move != 0 && !isAttacking)
+        {
+            if (soundOfMove.isPlaying) return;
+            soundOfMove.Play();
+        }
+        else soundOfMove.Stop();    
+            
         if (Input.GetButtonDown("Fire1"))
             if (isGrounded && !isAttacking && move == 0)
                 if (Time.time >= nextAttackTime)
@@ -86,7 +100,8 @@ public class Move : MonoBehaviour
 
             StartCoroutine(AttackAnimation());
             StartCoroutine(AttackCoolDown());
-            StartCoroutine(SoungOfAttack());
+            StartCoroutine(SoungOfMiss());
+            
 
             
         }
@@ -99,6 +114,7 @@ public class Move : MonoBehaviour
         {
             Debug.Log("We hit" + enemy);
             enemy.GetComponent<Enemy>().TakeDamage(1);
+            StartCoroutine(SoungOfAttack());
             return;
         }
     }
@@ -121,6 +137,13 @@ public class Move : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         shootFromPlayer.Play();
+
+    }
+    
+    private IEnumerator SoungOfMiss()
+    {
+        yield return new WaitForSeconds(0.15f);
+        miss.Play();
 
     }
 

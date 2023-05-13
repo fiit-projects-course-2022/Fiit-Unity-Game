@@ -15,6 +15,10 @@ public class testjump : MonoBehaviour
     public GameObject slug;
     [SerializeField]public float wait = 0f;
     public Vector3 slugCoordinate;
+
+    public bool afterJump = false;
+    public AudioSource soundAfterJump;
+    public bool kostl = false;
     // Start is called before the first frame update
     
     private SlugStates1 State
@@ -46,6 +50,7 @@ public class testjump : MonoBehaviour
             if (Math.Abs(slugCoordinate.x - playerCoordinate.x) < 10 && 
                 Math.Abs(slugCoordinate.y - playerCoordinate.y - 2.65) < 3)
             {
+                kostl = true;
                 if (slugCoordinate.x > playerCoordinate.x && flipRight)
                 {
                     Flip();
@@ -76,6 +81,13 @@ public class testjump : MonoBehaviour
         {
             isGrounded = true;
             rb.velocity = Vector2.zero;
+            if (afterJump == true && kostl == true)
+            {
+                soundAfterJump.Play();
+                afterJump = false;
+            }
+
+            State = SlugStates1.afk;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -83,6 +95,7 @@ public class testjump : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             State = SlugStates1.jump1;
+            afterJump = true;
             isGrounded = false;
         }
     }

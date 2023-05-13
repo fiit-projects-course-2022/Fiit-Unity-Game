@@ -5,6 +5,8 @@ using System;
 
 public class ckeletagr : MonoBehaviour
 {
+    [SerializeField] public AudioSource soundOfMove;
+    [SerializeField] public AudioSource soundOfHit;
     private Animator anim;
     private Rigidbody2D rb;
     public Vector3 playerCoordinate;
@@ -17,6 +19,7 @@ public class ckeletagr : MonoBehaviour
     public Transform attackPoint;
     public float attackRange;
     public LayerMask playerLayers;
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -44,7 +47,8 @@ public class ckeletagr : MonoBehaviour
         skeletCoordinate = transform.position;
         SetState(CkeletStates.afk);
         
-        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 3)
+        if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 3 &&
+            Math.Abs(skeletCoordinate.y - playerCoordinate.y) < 2)
         {
             firstEnter = true;
             flag = false;
@@ -62,6 +66,7 @@ public class ckeletagr : MonoBehaviour
                 hit = true;
                 firstEnter = false;
                 wait = 0f;
+                
             }
             
         }
@@ -69,6 +74,8 @@ public class ckeletagr : MonoBehaviour
         if (Math.Abs(skeletCoordinate.x - playerCoordinate.x) < 13 &&
             Math.Abs(skeletCoordinate.y - playerCoordinate.y) < 2 && flag)
         {
+            if (soundOfMove.isPlaying) return;
+            soundOfMove.Play();
             if (skeletCoordinate.x > playerCoordinate.x && !flipRight)
             {
                 Flip();
@@ -85,8 +92,13 @@ public class ckeletagr : MonoBehaviour
             }
             else rb.velocity = new Vector2(2, rb.velocity.y);
         }
+        else soundOfMove.Stop();
     }
 
+    private void SoundOfHit()
+    {
+        soundOfHit.Play();
+    }
     private void Flip()
     {
         flipRight = !flipRight;

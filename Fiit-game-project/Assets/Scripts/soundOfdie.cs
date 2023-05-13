@@ -27,7 +27,6 @@ public class soundOfdie : MonoBehaviour
     {
         DieFireBall();
         DieBonic();
-        
         DieSlug();
         
     }
